@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Actor>
+@{
+    ViewData["Title"] = "Actors";
+}
+
+<div class="container p-3">
+
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="row h2 pl-5 mb-3 text-primary">Actors</div>
+
+            @if (Model.Count() > 0)
+            {
+
+                <table class="table table-striped">
+                    <thead>
+                        <tr class="text-center">
+                            <th class="text-success h3">@Html.DisplayNameFor(model => model.ProfilePictureURL)</th>
+                            <th class="text-info h3">@Html.DisplayNameFor(model => model.FullName)</th>
+                            <th class="text-secondary h3">@Html.DisplayNameFor(model => model.Bio)</th>
+                            <th class="h3">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            foreach (var actor in Model)
+                            {
+                                <tr>
+                                    <td width="20%"><img class="align-middle rounded-circle" height="100" src="@actor.ProfilePictureURL" alt="@actor.FullName" /></td>
+                                    <td width="10%" class="align-middle text-secondary">@actor.FullName</td>
+                                    <td width="20%" class=" align-middle text-secondary">@actor.Bio</td>
+                                    <td class="align-middle">
+                                        <a asp-action="Update" asp-route-id="@actor.Id"class ="btn btn-outline-primary"><i class="fa fa-edit"></i>Edit</a>|
+                                        <a asp-action="GetDetails" asp-route-id="@actor.Id" class="btn btn-outline-info"><i class="fa fa-eye"></i>Details</a>|
+                                        <a class="btn btn-danger text-white" asp-action="Delete" asp-route-Id="@actor.Id"><i class="fa fa-trash"></i>Delete</a>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+
+            }
+            else
+            {
+                <div class="h3 text-info">No Actors in Database...</div>
+            }
+        </div>
+    </div>
+    <div class="text-center" style="position:fixed;right:25px;bottom:25px;">
+        <a asp-action="Create" class="btn btn-success float-ri"><i class="fas fa-plus"></i> Add new</a>
+    </div>
+</div>
